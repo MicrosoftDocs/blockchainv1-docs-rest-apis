@@ -94,7 +94,7 @@
     },
     "fileMetadata": {
       "searchScope": {
-        "structured/**.yml": ["powerapps", "REST"]
+        "structured/**.yml": ["blockchainv1", "REST"]
       }
     },
     "template": [],
