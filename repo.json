@@ -1,7 +1,14 @@
 {
-  "repo": [{
+  "repo": [
+  {
     "url": "https://github.com/MicrosoftDocs/powerapps-docs-pr",
     "branch": "webapi-reference",
     "name": "powerapps-docs-pr"
-  }]
+  },
+  {
+         "url":"https://github.com/azure/azure-rest-api-specs",
+         "branch":"master",
+         "name":"azure-rest-api-specs"
+  }
+  ]
 }

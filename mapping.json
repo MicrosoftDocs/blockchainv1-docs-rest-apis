@@ -8,15 +8,21 @@
       "name": "",
       "index": "index.md",
       "default_toc_title": "Getting Started with REST",
-    "services": [{
-      "toc_title": "Webapi",
-      "url_group": "webapi",
-	  "service_index": "docs-ref-conceptual/webapi/index.md",
-      "service_toc": "docs-ref-conceptual/webapi/toc.md",
-      "swagger_files": [{
-        "source": "powerapps-docs-pr/powerapps-docs/developer/common-data-service/reference/web-api.json"
-      }]
-    }]
-  }]
-}
+    "services": [
+	{
+          "toc_title": "AKS",
+          "url_group": "aks",
+          "service_index": "docs-ref-conceptual/aks/index.md",
+          "service_toc": "docs-ref-conceptual/aks/toc.md",
+          "swagger_files": [
+            {
+              "source": "azure-rest-api-specs/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json"
+            }
+          ]
+        }
+	]
+    }
+	]
+  }
+
 
