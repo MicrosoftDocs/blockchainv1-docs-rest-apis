@@ -1,0 +1,115 @@
+### YamlMime:RESTOperation
+uid: management.azure.com.aks.operations.list
+name: List
+service: AKS
+groupName: Operations
+apiVersion: 2019-08-01
+summary: Gets a list of compute operations.
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+- content: GET https://management.azure.com/providers/Microsoft.ContainerService/operations?api-version=2019-08-01
+uriParameters:
+- name: api-version
+  in: query
+  isRequired: true
+  description: Client Api Version.
+  types:
+  - uid: string
+responses:
+- name: 200 OK
+  description: OK
+  types:
+  - uid: OperationListResult
+- name: Other Status Codes
+  description: Error response describing why the operation failed.
+  types:
+  - uid: CloudError
+requestHeader: []
+definitions:
+- name: OperationListResult
+  description: The List Compute Operation operation response.
+  kind: object
+  properties:
+  - name: value
+    isReadyOnly: true
+    description: The list of compute operations
+    types:
+    - uid: OperationValue
+      isArray: true
+- name: CloudError
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: error
+    description: Details about the error.
+    types:
+    - uid: CloudErrorBody
+- name: OperationValue
+  description: Describes the properties of a Compute Operation value.
+  kind: object
+  properties:
+  - name: origin
+    isReadyOnly: true
+    description: The origin of the compute operation.
+    types:
+    - uid: string
+  - name: name
+    isReadyOnly: true
+    description: The name of the compute operation.
+    types:
+    - uid: string
+  - name: display.operation
+    isReadyOnly: true
+    description: The display name of the compute operation.
+    types:
+    - uid: string
+  - name: display.resource
+    isReadyOnly: true
+    description: The display name of the resource the operation applies to.
+    types:
+    - uid: string
+  - name: display.description
+    isReadyOnly: true
+    description: The description of the operation.
+    types:
+    - uid: string
+  - name: display.provider
+    isReadyOnly: true
+    description: The resource provider for the operation.
+    types:
+    - uid: string
+- name: CloudErrorBody
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: code
+    description: An identifier for the error. Codes are invariant and are intended to be consumed programmatically.
+    types:
+    - uid: string
+  - name: message
+    description: A message describing the error, intended to be suitable for display in a user interface.
+    types:
+    - uid: string
+  - name: target
+    description: The target of the particular error. For example, the name of the property in error.
+    types:
+    - uid: string
+  - name: details
+    description: A list of additional details about the error.
+    types:
+    - uid: CloudErrorBody
+      isArray: true
+examples: []
+security:
+- name: azure_auth
+  type: oauth2
+  description: Azure Active Directory OAuth2 Flow
+  flow: implicit
+  authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+  scopes:
+  - name: user_impersonation
+    description: impersonate your user account
+errorCodes: []

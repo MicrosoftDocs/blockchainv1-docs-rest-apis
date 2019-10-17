@@ -1,0 +1,30 @@
+### YamlMime:RESTOperationGroup
+uid: management.azure.com.aks.managedclusters
+name: Managed Clusters
+apiVersion: 2019-08-01
+service: AKS
+operations:
+- uid: management.azure.com.aks.managedclusters.createorupdate
+  summary: "Creates or updates a managed cluster.  \nCreates or updates a managed cluster with the specified configuration for agents and Kubernetes version."
+- uid: management.azure.com.aks.managedclusters.delete
+  summary: "Deletes a managed cluster.  \nDeletes the managed cluster with a specified resource group and name."
+- uid: management.azure.com.aks.managedclusters.get
+  summary: "Gets a managed cluster.  \nGets the details of the managed cluster with a specified resource group and name."
+- uid: management.azure.com.aks.managedclusters.getaccessprofile
+  summary: "Gets an access profile of a managed cluster.  \nGets the accessProfile for the specified role name of the managed cluster with a specified resource group and name."
+- uid: management.azure.com.aks.managedclusters.getupgradeprofile
+  summary: "Gets upgrade profile for a managed cluster.  \nGets the details of the upgrade profile for a managed cluster with a specified resource group and name."
+- uid: management.azure.com.aks.managedclusters.list
+  summary: "Gets a list of managed clusters in the specified subscription.  \nGets a list of managed clusters in the specified subscription. The operation returns properties of each managed cluster."
+- uid: management.azure.com.aks.managedclusters.listbyresourcegroup
+  summary: "Lists managed clusters in the specified subscription and resource group.  \nLists managed clusters in the specified subscription and resource group. The operation returns properties of each managed cluster."
+- uid: management.azure.com.aks.managedclusters.listclusteradmincredentials
+  summary: "Gets cluster admin credential of a managed cluster.  \nGets cluster admin credential of the managed cluster with a specified resource group and name."
+- uid: management.azure.com.aks.managedclusters.listclusterusercredentials
+  summary: "Gets cluster user credential of a managed cluster.  \nGets cluster user credential of the managed cluster with a specified resource group and name."
+- uid: management.azure.com.aks.managedclusters.resetaadprofile
+  summary: "Reset AAD Profile of a managed cluster.  \nUpdate the AAD Profile for a managed cluster."
+- uid: management.azure.com.aks.managedclusters.resetserviceprincipalprofile
+  summary: "Reset Service Principal Profile of a managed cluster.  \nUpdate the service principal Profile for a managed cluster."
+- uid: management.azure.com.aks.managedclusters.updatetags
+  summary: "Updates tags on a managed cluster.  \nUpdates a managed cluster with the specified tags."

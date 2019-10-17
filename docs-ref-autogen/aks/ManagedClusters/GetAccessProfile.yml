@@ -1,0 +1,146 @@
+### YamlMime:RESTOperation
+uid: management.azure.com.aks.managedclusters.getaccessprofile
+name: Get Access Profile
+service: AKS
+groupName: Managed Clusters
+apiVersion: 2019-08-01
+summary: "Gets an access profile of a managed cluster.  \nGets the accessProfile for the specified role name of the managed cluster with a specified resource group and name."
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+- content: POST https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/accessProfiles/{roleName}/listCredential?api-version=2019-08-01
+uriParameters:
+- name: subscriptionId
+  in: path
+  isRequired: true
+  description: Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+  types:
+  - uid: string
+- name: resourceGroupName
+  in: path
+  isRequired: true
+  description: The name of the resource group.
+  types:
+  - uid: string
+- name: resourceName
+  in: path
+  isRequired: true
+  description: The name of the managed cluster resource.
+  types:
+  - uid: string
+  pattern: ^[a-zA-Z0-9]$|^[a-zA-Z0-9][-_a-zA-Z0-9]{0,61}[a-zA-Z0-9]$
+- name: roleName
+  in: path
+  isRequired: true
+  description: The name of the role for managed cluster accessProfile resource.
+  types:
+  - uid: string
+- name: api-version
+  in: query
+  isRequired: true
+  description: Client Api Version.
+  types:
+  - uid: string
+responses:
+- name: 200 OK
+  description: OK
+  types:
+  - uid: ManagedClusterAccessProfile
+- name: Other Status Codes
+  description: Error response describing why the operation failed.
+  types:
+  - uid: CloudError
+requestHeader: []
+definitions:
+- name: ManagedClusterAccessProfile
+  description: Managed cluster Access Profile.
+  kind: object
+  properties:
+  - name: id
+    isReadyOnly: true
+    description: Resource Id
+    types:
+    - uid: string
+  - name: name
+    isReadyOnly: true
+    description: Resource name
+    types:
+    - uid: string
+  - name: type
+    isReadyOnly: true
+    description: Resource type
+    types:
+    - uid: string
+  - name: location
+    description: Resource location
+    types:
+    - uid: string
+  - name: tags
+    description: Resource tags
+    types:
+    - uid: object
+      isDictionary: true
+      additionalTypes:
+      - uid: string
+      - uid: string
+  - name: properties.kubeConfig
+    description: Base64-encoded Kubernetes configuration file.
+    types:
+    - uid: string
+- name: CloudError
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: error
+    description: Details about the error.
+    types:
+    - uid: CloudErrorBody
+- name: CloudErrorBody
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: code
+    description: An identifier for the error. Codes are invariant and are intended to be consumed programmatically.
+    types:
+    - uid: string
+  - name: message
+    description: A message describing the error, intended to be suitable for display in a user interface.
+    types:
+    - uid: string
+  - name: target
+    description: The target of the particular error. For example, the name of the property in error.
+    types:
+    - uid: string
+  - name: details
+    description: A list of additional details about the error.
+    types:
+    - uid: CloudErrorBody
+      isArray: true
+examples:
+- name: Get Managed Cluster
+  request:
+    uri: POST https://management.azure.com/subscriptions/subid1/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/accessProfiles/clusterUser/listCredential?api-version=2019-08-01
+  responses:
+  - statusCode: "200"
+    body: >-
+      {
+        "id": "/subscriptions/subid1/resourcegroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/accessProfiles/clusterUser",
+        "location": "location1",
+        "name": "clusterUser",
+        "properties": {
+          "kubeConfig": "kubeConfig1"
+        },
+        "type": "Microsoft.ContainerService/ManagedClusters/AccessProfiles"
+      }
+security:
+- name: azure_auth
+  type: oauth2
+  description: Azure Active Directory OAuth2 Flow
+  flow: implicit
+  authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+  scopes:
+  - name: user_impersonation
+    description: impersonate your user account
+errorCodes: []

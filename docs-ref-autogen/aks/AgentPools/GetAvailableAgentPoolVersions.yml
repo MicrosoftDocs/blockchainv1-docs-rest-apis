@@ -1,0 +1,123 @@
+### YamlMime:RESTOperation
+uid: management.azure.com.aks.agentpools.getavailableagentpoolversions
+name: Get Available Agent Pool Versions
+service: AKS
+groupName: Agent Pools
+apiVersion: 2019-08-01
+summary: Gets a list of supported versions for the specified agent pool.
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+- content: GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/availableAgentPoolVersions?api-version=2019-08-01
+uriParameters:
+- name: subscriptionId
+  in: path
+  isRequired: true
+  description: Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+  types:
+  - uid: string
+- name: resourceGroupName
+  in: path
+  isRequired: true
+  description: The name of the resource group.
+  types:
+  - uid: string
+- name: resourceName
+  in: path
+  isRequired: true
+  description: The name of the managed cluster resource.
+  types:
+  - uid: string
+  pattern: ^[a-zA-Z0-9]$|^[a-zA-Z0-9][-_a-zA-Z0-9]{0,61}[a-zA-Z0-9]$
+- name: api-version
+  in: query
+  isRequired: true
+  description: Client Api Version.
+  types:
+  - uid: string
+responses:
+- name: 200 OK
+  description: OK
+  types:
+  - uid: AgentPoolAvailableVersions
+requestHeader: []
+definitions:
+- name: AgentPoolAvailableVersions
+  description: The list of available versions for an agent pool.
+  kind: object
+  properties:
+  - name: id
+    isReadyOnly: true
+    description: Id of the agent pool available versions.
+    types:
+    - uid: string
+  - name: name
+    isReadyOnly: true
+    description: Name of the agent pool available versions.
+    types:
+    - uid: string
+  - name: type
+    isReadyOnly: true
+    description: Type of the agent pool  available versions.
+    types:
+    - uid: string
+  - name: properties.agentPoolVersions
+    description: List of versions available for agent pool.
+    types:
+    - uid: AgentPoolVersions
+      isArray: true
+- name: AgentPoolVersions
+  description: List of versions available for agent pool.
+  kind: object
+  properties:
+  - name: default
+    description: Whether this version is the default agent pool version.
+    types:
+    - uid: boolean
+  - name: kubernetesVersion
+    description: Kubernetes version (major, minor, patch).
+    types:
+    - uid: string
+  - name: isPreview
+    description: Whether Kubernetes version is currently in preview.
+    types:
+    - uid: boolean
+examples:
+- name: Get available versions for agent pool
+  request:
+    uri: GET https://management.azure.com/subscriptions/subid1/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/availableAgentPoolVersions?api-version=2019-08-01
+  responses:
+  - statusCode: "200"
+    body: >-
+      {
+        "id": "/subscriptions/subid1/resourcegroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/availableagentpoolversions",
+        "name": "default",
+        "properties": {
+          "agentPoolVersions": [
+            {
+              "kubernetesVersion": "1.12.7"
+            },
+            {
+              "kubernetesVersion": "1.12.8"
+            },
+            {
+              "default": true,
+              "kubernetesVersion": "1.13.5",
+              "isPreview": true
+            }
+          ]
+        },
+        "type": "Microsoft.ContainerService/managedClusters/availableAgentpoolVersions"
+      }
+security:
+- name: azure_auth
+  type: oauth2
+  description: Azure Active Directory OAuth2 Flow
+  flow: implicit
+  authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+  scopes:
+  - name: user_impersonation
+    description: impersonate your user account
+errorCodes: []

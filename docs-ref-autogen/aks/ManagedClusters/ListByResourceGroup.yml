@@ -1,0 +1,1160 @@
+### YamlMime:RESTOperation
+uid: management.azure.com.aks.managedclusters.listbyresourcegroup
+name: List By Resource Group
+service: AKS
+groupName: Managed Clusters
+apiVersion: 2019-08-01
+summary: "Lists managed clusters in the specified subscription and resource group.  \nLists managed clusters in the specified subscription and resource group. The operation returns properties of each managed cluster."
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+- content: GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters?api-version=2019-08-01
+uriParameters:
+- name: subscriptionId
+  in: path
+  isRequired: true
+  description: Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+  types:
+  - uid: string
+- name: resourceGroupName
+  in: path
+  isRequired: true
+  description: The name of the resource group.
+  types:
+  - uid: string
+- name: api-version
+  in: query
+  isRequired: true
+  description: Client Api Version.
+  types:
+  - uid: string
+responses:
+- name: 200 OK
+  description: OK
+  types:
+  - uid: ManagedClusterListResult
+- name: Other Status Codes
+  description: Error response describing why the operation failed.
+  types:
+  - uid: CloudError
+requestHeader: []
+definitions:
+- name: ManagedClusterListResult
+  description: The response from the List Managed Clusters operation.
+  kind: object
+  properties:
+  - name: value
+    description: The list of managed clusters.
+    types:
+    - uid: ManagedCluster
+      isArray: true
+  - name: nextLink
+    isReadyOnly: true
+    description: The URL to get the next set of managed cluster results.
+    types:
+    - uid: string
+- name: CloudError
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: error
+    description: Details about the error.
+    types:
+    - uid: CloudErrorBody
+- name: ManagedCluster
+  description: Managed cluster.
+  kind: object
+  properties:
+  - name: id
+    isReadyOnly: true
+    description: Resource Id
+    types:
+    - uid: string
+  - name: name
+    isReadyOnly: true
+    description: Resource name
+    types:
+    - uid: string
+  - name: type
+    isReadyOnly: true
+    description: Resource type
+    types:
+    - uid: string
+  - name: location
+    description: Resource location
+    types:
+    - uid: string
+  - name: tags
+    description: Resource tags
+    types:
+    - uid: object
+      isDictionary: true
+      additionalTypes:
+      - uid: string
+      - uid: string
+  - name: identity
+    description: The identity of the managed cluster, if configured.
+    types:
+    - uid: ManagedClusterIdentity
+  - name: properties.provisioningState
+    isReadyOnly: true
+    description: The current deployment or provisioning state, which only appears in the response.
+    types:
+    - uid: string
+  - name: properties.maxAgentPools
+    isReadyOnly: true
+    description: The max number of agent pools for the managed cluster.
+    types:
+    - uid: integer
+  - name: properties.kubernetesVersion
+    description: Version of Kubernetes specified when creating the managed cluster.
+    types:
+    - uid: string
+  - name: properties.dnsPrefix
+    description: DNS prefix specified when creating the managed cluster.
+    types:
+    - uid: string
+  - name: properties.fqdn
+    isReadyOnly: true
+    description: FQDN for the master pool.
+    types:
+    - uid: string
+  - name: properties.agentPoolProfiles
+    description: Properties of the agent pool.
+    types:
+    - uid: ManagedClusterAgentPoolProfile
+      isArray: true
+  - name: properties.linuxProfile
+    description: Profile for Linux VMs in the container service cluster.
+    types:
+    - uid: ContainerServiceLinuxProfile
+  - name: properties.windowsProfile
+    description: Profile for Windows VMs in the container service cluster.
+    types:
+    - uid: ManagedClusterWindowsProfile
+  - name: properties.servicePrincipalProfile
+    description: Information about a service principal identity for the cluster to use for manipulating Azure APIs.
+    types:
+    - uid: ManagedClusterServicePrincipalProfile
+  - name: properties.addonProfiles
+    description: Profile of managed cluster add-on.
+    types:
+    - uid: object
+      isDictionary: true
+      additionalTypes:
+      - uid: string
+      - uid: ManagedClusterAddonProfile
+  - name: properties.nodeResourceGroup
+    description: Name of the resource group containing agent pool nodes.
+    types:
+    - uid: string
+  - name: properties.enableRBAC
+    description: Whether to enable Kubernetes Role-Based Access Control.
+    types:
+    - uid: boolean
+  - name: properties.enablePodSecurityPolicy
+    description: (PREVIEW) Whether to enable Kubernetes Pod security policy.
+    types:
+    - uid: boolean
+  - name: properties.networkProfile
+    description: Profile of network configuration.
+    types:
+    - uid: ContainerServiceNetworkProfile
+  - name: properties.aadProfile
+    description: Profile of Azure Active Directory configuration.
+    types:
+    - uid: ManagedClusterAADProfile
+  - name: properties.apiServerAccessProfile
+    description: Access profile for managed cluster API server.
+    types:
+    - uid: ManagedClusterAPIServerAccessProfile
+- name: CloudErrorBody
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: code
+    description: An identifier for the error. Codes are invariant and are intended to be consumed programmatically.
+    types:
+    - uid: string
+  - name: message
+    description: A message describing the error, intended to be suitable for display in a user interface.
+    types:
+    - uid: string
+  - name: target
+    description: The target of the particular error. For example, the name of the property in error.
+    types:
+    - uid: string
+  - name: details
+    description: A list of additional details about the error.
+    types:
+    - uid: CloudErrorBody
+      isArray: true
+- name: ManagedClusterIdentity
+  description: Identity for the managed cluster.
+  kind: object
+  properties:
+  - name: principalId
+    isReadyOnly: true
+    description: The principal id of the system assigned identity which is used by master components.
+    types:
+    - uid: string
+  - name: tenantId
+    isReadyOnly: true
+    description: The tenant id of the system assigned identity which is used by master components.
+    types:
+    - uid: string
+  - name: type
+    description: The type of identity used for the managed cluster. Type 'SystemAssigned' will use an implicitly created identity in master components and an auto-created user assigned identity in MC_ resource group in agent nodes. Type 'None' will not use MSI for the managed cluster, service principal will be used instead.
+    types:
+    - uid: ResourceIdentityType
+- name: ManagedClusterAgentPoolProfile
+  description: Profile for the container service agent pool.
+  kind: object
+  properties:
+  - name: count
+    description: 'Number of agents (VMs) to host docker containers. Allowed values must be in the range of 1 to 100 (inclusive). The default value is 1. '
+    types:
+    - uid: integer
+  - name: vmSize
+    description: Size of agent VMs.
+    types:
+    - uid: ContainerServiceVMSizeTypes
+  - name: osDiskSizeGB
+    description: OS Disk Size in GB to be used to specify the disk size for every machine in this master/agent pool. If you specify 0, it will apply the default osDisk size according to the vmSize specified.
+    types:
+    - uid: integer
+  - name: vnetSubnetID
+    description: VNet SubnetID specifies the VNet's subnet identifier.
+    types:
+    - uid: string
+  - name: maxPods
+    description: Maximum number of pods that can run on a node.
+    types:
+    - uid: integer
+  - name: osType
+    description: OsType to be used to specify os type. Choose from Linux and Windows. Default to Linux.
+    types:
+    - uid: OSType
+  - name: maxCount
+    description: Maximum number of nodes for auto-scaling
+    types:
+    - uid: integer
+  - name: minCount
+    description: Minimum number of nodes for auto-scaling
+    types:
+    - uid: integer
+  - name: enableAutoScaling
+    description: Whether to enable auto-scaler
+    types:
+    - uid: boolean
+  - name: type
+    description: AgentPoolType represents types of an agent pool
+    types:
+    - uid: AgentPoolType
+  - name: orchestratorVersion
+    description: Version of orchestrator specified when creating the managed cluster.
+    types:
+    - uid: string
+  - name: provisioningState
+    isReadyOnly: true
+    description: The current deployment or provisioning state, which only appears in the response.
+    types:
+    - uid: string
+  - name: availabilityZones
+    description: (PREVIEW) Availability zones for nodes. Must use VirtualMachineScaleSets AgentPoolType.
+    types:
+    - uid: string
+      isArray: true
+  - name: enableNodePublicIP
+    description: Enable public IP for nodes
+    types:
+    - uid: boolean
+  - name: scaleSetPriority
+    description: ScaleSetPriority to be used to specify virtual machine scale set priority. Default to regular.
+    types:
+    - uid: ScaleSetPriority
+  - name: scaleSetEvictionPolicy
+    description: ScaleSetEvictionPolicy to be used to specify eviction policy for low priority virtual machine scale set. Default to Delete.
+    types:
+    - uid: ScaleSetEvictionPolicy
+  - name: nodeTaints
+    description: Taints added to new nodes during node pool create and scale. For example, key=value:NoSchedule.
+    types:
+    - uid: string
+      isArray: true
+  - name: name
+    description: Unique name of the agent pool profile in the context of the subscription and resource group.
+    types:
+    - uid: string
+- name: ContainerServiceLinuxProfile
+  description: Profile for Linux VMs in the container service cluster.
+  kind: object
+  properties:
+  - name: adminUsername
+    description: The administrator username to use for Linux VMs.
+    types:
+    - uid: string
+  - name: ssh
+    description: SSH configuration for Linux-based VMs running on Azure.
+    types:
+    - uid: ContainerServiceSshConfiguration
+- name: ManagedClusterWindowsProfile
+  description: Profile for Windows VMs in the container service cluster.
+  kind: object
+  properties:
+  - name: adminUsername
+    description: The administrator username to use for Windows VMs.
+    types:
+    - uid: string
+  - name: adminPassword
+    description: The administrator password to use for Windows VMs.
+    types:
+    - uid: string
+- name: ManagedClusterServicePrincipalProfile
+  description: Information about a service principal identity for the cluster to use for manipulating Azure APIs.
+  kind: object
+  properties:
+  - name: clientId
+    description: The ID for the service principal.
+    types:
+    - uid: string
+  - name: secret
+    description: The secret password associated with the service principal in plain text.
+    types:
+    - uid: string
+- name: ManagedClusterAddonProfile
+  description: A Kubernetes add-on profile for a managed cluster.
+  kind: object
+  properties:
+  - name: enabled
+    description: Whether the add-on is enabled or not.
+    types:
+    - uid: boolean
+  - name: config
+    description: Key-value pairs for configuring an add-on.
+    types:
+    - uid: object
+      isDictionary: true
+      additionalTypes:
+      - uid: string
+      - uid: string
+- name: ContainerServiceNetworkProfile
+  description: Profile of network configuration.
+  kind: object
+  properties:
+  - name: networkPlugin
+    description: Network plugin used for building Kubernetes network.
+    types:
+    - uid: NetworkPlugin
+  - name: networkPolicy
+    description: Network policy used for building Kubernetes network.
+    types:
+    - uid: NetworkPolicy
+  - name: podCidr
+    description: A CIDR notation IP range from which to assign pod IPs when kubenet is used.
+    types:
+    - uid: string
+  - name: serviceCidr
+    description: A CIDR notation IP range from which to assign service cluster IPs. It must not overlap with any Subnet IP ranges.
+    types:
+    - uid: string
+  - name: dnsServiceIP
+    description: An IP address assigned to the Kubernetes DNS service. It must be within the Kubernetes service address range specified in serviceCidr.
+    types:
+    - uid: string
+  - name: dockerBridgeCidr
+    description: A CIDR notation IP range assigned to the Docker bridge network. It must not overlap with any Subnet IP ranges or the Kubernetes service address range.
+    types:
+    - uid: string
+  - name: loadBalancerSku
+    description: The load balancer sku for the managed cluster.
+    types:
+    - uid: loadBalancerSku
+  - name: loadBalancerProfile
+    description: Profile of the cluster load balancer.
+    types:
+    - uid: ManagedClusterLoadBalancerProfile
+- name: ManagedClusterAADProfile
+  description: AADProfile specifies attributes for Azure Active Directory integration.
+  kind: object
+  properties:
+  - name: clientAppID
+    description: The client AAD application ID.
+    types:
+    - uid: string
+  - name: serverAppID
+    description: The server AAD application ID.
+    types:
+    - uid: string
+  - name: serverAppSecret
+    description: The server AAD application secret.
+    types:
+    - uid: string
+  - name: tenantID
+    description: The AAD tenant ID to use for authentication. If not specified, will use the tenant of the deployment subscription.
+    types:
+    - uid: string
+- name: ManagedClusterAPIServerAccessProfile
+  description: Access profile for managed cluster API server.
+  kind: object
+  properties:
+  - name: authorizedIPRanges
+    description: Authorized IP Ranges to kubernetes API server.
+    types:
+    - uid: string
+      isArray: true
+  - name: enablePrivateCluster
+    description: Whether to create the cluster as a private cluster or not.
+    types:
+    - uid: boolean
+- name: ResourceIdentityType
+  description: The type of identity used for the managed cluster. Type 'SystemAssigned' will use an implicitly created identity in master components and an auto-created user assigned identity in MC_ resource group in agent nodes. Type 'None' will not use MSI for the managed cluster, service principal will be used instead.
+  kind: enum
+  properties:
+  - name: SystemAssigned
+    types:
+    - uid: string
+  - name: None
+    types:
+    - uid: string
+- name: ContainerServiceVMSizeTypes
+  description: Size of agent VMs.
+  kind: enum
+  properties:
+  - name: Standard_A1
+    types:
+    - uid: string
+  - name: Standard_A10
+    types:
+    - uid: string
+  - name: Standard_A11
+    types:
+    - uid: string
+  - name: Standard_A1_v2
+    types:
+    - uid: string
+  - name: Standard_A2
+    types:
+    - uid: string
+  - name: Standard_A2_v2
+    types:
+    - uid: string
+  - name: Standard_A2m_v2
+    types:
+    - uid: string
+  - name: Standard_A3
+    types:
+    - uid: string
+  - name: Standard_A4
+    types:
+    - uid: string
+  - name: Standard_A4_v2
+    types:
+    - uid: string
+  - name: Standard_A4m_v2
+    types:
+    - uid: string
+  - name: Standard_A5
+    types:
+    - uid: string
+  - name: Standard_A6
+    types:
+    - uid: string
+  - name: Standard_A7
+    types:
+    - uid: string
+  - name: Standard_A8
+    types:
+    - uid: string
+  - name: Standard_A8_v2
+    types:
+    - uid: string
+  - name: Standard_A8m_v2
+    types:
+    - uid: string
+  - name: Standard_A9
+    types:
+    - uid: string
+  - name: Standard_B2ms
+    types:
+    - uid: string
+  - name: Standard_B2s
+    types:
+    - uid: string
+  - name: Standard_B4ms
+    types:
+    - uid: string
+  - name: Standard_B8ms
+    types:
+    - uid: string
+  - name: Standard_D1
+    types:
+    - uid: string
+  - name: Standard_D11
+    types:
+    - uid: string
+  - name: Standard_D11_v2
+    types:
+    - uid: string
+  - name: Standard_D11_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D12
+    types:
+    - uid: string
+  - name: Standard_D12_v2
+    types:
+    - uid: string
+  - name: Standard_D12_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D13
+    types:
+    - uid: string
+  - name: Standard_D13_v2
+    types:
+    - uid: string
+  - name: Standard_D13_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D14
+    types:
+    - uid: string
+  - name: Standard_D14_v2
+    types:
+    - uid: string
+  - name: Standard_D14_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D15_v2
+    types:
+    - uid: string
+  - name: Standard_D16_v3
+    types:
+    - uid: string
+  - name: Standard_D16s_v3
+    types:
+    - uid: string
+  - name: Standard_D1_v2
+    types:
+    - uid: string
+  - name: Standard_D2
+    types:
+    - uid: string
+  - name: Standard_D2_v2
+    types:
+    - uid: string
+  - name: Standard_D2_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D2_v3
+    types:
+    - uid: string
+  - name: Standard_D2s_v3
+    types:
+    - uid: string
+  - name: Standard_D3
+    types:
+    - uid: string
+  - name: Standard_D32_v3
+    types:
+    - uid: string
+  - name: Standard_D32s_v3
+    types:
+    - uid: string
+  - name: Standard_D3_v2
+    types:
+    - uid: string
+  - name: Standard_D3_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D4
+    types:
+    - uid: string
+  - name: Standard_D4_v2
+    types:
+    - uid: string
+  - name: Standard_D4_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D4_v3
+    types:
+    - uid: string
+  - name: Standard_D4s_v3
+    types:
+    - uid: string
+  - name: Standard_D5_v2
+    types:
+    - uid: string
+  - name: Standard_D5_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D64_v3
+    types:
+    - uid: string
+  - name: Standard_D64s_v3
+    types:
+    - uid: string
+  - name: Standard_D8_v3
+    types:
+    - uid: string
+  - name: Standard_D8s_v3
+    types:
+    - uid: string
+  - name: Standard_DS1
+    types:
+    - uid: string
+  - name: Standard_DS11
+    types:
+    - uid: string
+  - name: Standard_DS11_v2
+    types:
+    - uid: string
+  - name: Standard_DS11_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS12
+    types:
+    - uid: string
+  - name: Standard_DS12_v2
+    types:
+    - uid: string
+  - name: Standard_DS12_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS13
+    types:
+    - uid: string
+  - name: Standard_DS13-2_v2
+    types:
+    - uid: string
+  - name: Standard_DS13-4_v2
+    types:
+    - uid: string
+  - name: Standard_DS13_v2
+    types:
+    - uid: string
+  - name: Standard_DS13_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS14
+    types:
+    - uid: string
+  - name: Standard_DS14-4_v2
+    types:
+    - uid: string
+  - name: Standard_DS14-8_v2
+    types:
+    - uid: string
+  - name: Standard_DS14_v2
+    types:
+    - uid: string
+  - name: Standard_DS14_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS15_v2
+    types:
+    - uid: string
+  - name: Standard_DS1_v2
+    types:
+    - uid: string
+  - name: Standard_DS2
+    types:
+    - uid: string
+  - name: Standard_DS2_v2
+    types:
+    - uid: string
+  - name: Standard_DS2_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS3
+    types:
+    - uid: string
+  - name: Standard_DS3_v2
+    types:
+    - uid: string
+  - name: Standard_DS3_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS4
+    types:
+    - uid: string
+  - name: Standard_DS4_v2
+    types:
+    - uid: string
+  - name: Standard_DS4_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS5_v2
+    types:
+    - uid: string
+  - name: Standard_DS5_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_E16_v3
+    types:
+    - uid: string
+  - name: Standard_E16s_v3
+    types:
+    - uid: string
+  - name: Standard_E2_v3
+    types:
+    - uid: string
+  - name: Standard_E2s_v3
+    types:
+    - uid: string
+  - name: Standard_E32-16s_v3
+    types:
+    - uid: string
+  - name: Standard_E32-8s_v3
+    types:
+    - uid: string
+  - name: Standard_E32_v3
+    types:
+    - uid: string
+  - name: Standard_E32s_v3
+    types:
+    - uid: string
+  - name: Standard_E4_v3
+    types:
+    - uid: string
+  - name: Standard_E4s_v3
+    types:
+    - uid: string
+  - name: Standard_E64-16s_v3
+    types:
+    - uid: string
+  - name: Standard_E64-32s_v3
+    types:
+    - uid: string
+  - name: Standard_E64_v3
+    types:
+    - uid: string
+  - name: Standard_E64s_v3
+    types:
+    - uid: string
+  - name: Standard_E8_v3
+    types:
+    - uid: string
+  - name: Standard_E8s_v3
+    types:
+    - uid: string
+  - name: Standard_F1
+    types:
+    - uid: string
+  - name: Standard_F16
+    types:
+    - uid: string
+  - name: Standard_F16s
+    types:
+    - uid: string
+  - name: Standard_F16s_v2
+    types:
+    - uid: string
+  - name: Standard_F1s
+    types:
+    - uid: string
+  - name: Standard_F2
+    types:
+    - uid: string
+  - name: Standard_F2s
+    types:
+    - uid: string
+  - name: Standard_F2s_v2
+    types:
+    - uid: string
+  - name: Standard_F32s_v2
+    types:
+    - uid: string
+  - name: Standard_F4
+    types:
+    - uid: string
+  - name: Standard_F4s
+    types:
+    - uid: string
+  - name: Standard_F4s_v2
+    types:
+    - uid: string
+  - name: Standard_F64s_v2
+    types:
+    - uid: string
+  - name: Standard_F72s_v2
+    types:
+    - uid: string
+  - name: Standard_F8
+    types:
+    - uid: string
+  - name: Standard_F8s
+    types:
+    - uid: string
+  - name: Standard_F8s_v2
+    types:
+    - uid: string
+  - name: Standard_G1
+    types:
+    - uid: string
+  - name: Standard_G2
+    types:
+    - uid: string
+  - name: Standard_G3
+    types:
+    - uid: string
+  - name: Standard_G4
+    types:
+    - uid: string
+  - name: Standard_G5
+    types:
+    - uid: string
+  - name: Standard_GS1
+    types:
+    - uid: string
+  - name: Standard_GS2
+    types:
+    - uid: string
+  - name: Standard_GS3
+    types:
+    - uid: string
+  - name: Standard_GS4
+    types:
+    - uid: string
+  - name: Standard_GS4-4
+    types:
+    - uid: string
+  - name: Standard_GS4-8
+    types:
+    - uid: string
+  - name: Standard_GS5
+    types:
+    - uid: string
+  - name: Standard_GS5-16
+    types:
+    - uid: string
+  - name: Standard_GS5-8
+    types:
+    - uid: string
+  - name: Standard_H16
+    types:
+    - uid: string
+  - name: Standard_H16m
+    types:
+    - uid: string
+  - name: Standard_H16mr
+    types:
+    - uid: string
+  - name: Standard_H16r
+    types:
+    - uid: string
+  - name: Standard_H8
+    types:
+    - uid: string
+  - name: Standard_H8m
+    types:
+    - uid: string
+  - name: Standard_L16s
+    types:
+    - uid: string
+  - name: Standard_L32s
+    types:
+    - uid: string
+  - name: Standard_L4s
+    types:
+    - uid: string
+  - name: Standard_L8s
+    types:
+    - uid: string
+  - name: Standard_M128-32ms
+    types:
+    - uid: string
+  - name: Standard_M128-64ms
+    types:
+    - uid: string
+  - name: Standard_M128ms
+    types:
+    - uid: string
+  - name: Standard_M128s
+    types:
+    - uid: string
+  - name: Standard_M64-16ms
+    types:
+    - uid: string
+  - name: Standard_M64-32ms
+    types:
+    - uid: string
+  - name: Standard_M64ms
+    types:
+    - uid: string
+  - name: Standard_M64s
+    types:
+    - uid: string
+  - name: Standard_NC12
+    types:
+    - uid: string
+  - name: Standard_NC12s_v2
+    types:
+    - uid: string
+  - name: Standard_NC12s_v3
+    types:
+    - uid: string
+  - name: Standard_NC24
+    types:
+    - uid: string
+  - name: Standard_NC24r
+    types:
+    - uid: string
+  - name: Standard_NC24rs_v2
+    types:
+    - uid: string
+  - name: Standard_NC24rs_v3
+    types:
+    - uid: string
+  - name: Standard_NC24s_v2
+    types:
+    - uid: string
+  - name: Standard_NC24s_v3
+    types:
+    - uid: string
+  - name: Standard_NC6
+    types:
+    - uid: string
+  - name: Standard_NC6s_v2
+    types:
+    - uid: string
+  - name: Standard_NC6s_v3
+    types:
+    - uid: string
+  - name: Standard_ND12s
+    types:
+    - uid: string
+  - name: Standard_ND24rs
+    types:
+    - uid: string
+  - name: Standard_ND24s
+    types:
+    - uid: string
+  - name: Standard_ND6s
+    types:
+    - uid: string
+  - name: Standard_NV12
+    types:
+    - uid: string
+  - name: Standard_NV24
+    types:
+    - uid: string
+  - name: Standard_NV6
+    types:
+    - uid: string
+- name: OSType
+  description: OsType to be used to specify os type. Choose from Linux and Windows. Default to Linux.
+  kind: enum
+  properties:
+  - name: Linux
+    types:
+    - uid: string
+  - name: Windows
+    types:
+    - uid: string
+- name: AgentPoolType
+  description: AgentPoolType represents types of an agent pool. VirtualMachineScaleSets type is still in PREVIEW.
+  kind: enum
+  properties:
+  - name: VirtualMachineScaleSets
+    types:
+    - uid: string
+  - name: AvailabilitySet
+    types:
+    - uid: string
+- name: ScaleSetPriority
+  description: ScaleSetPriority to be used to specify virtual machine scale set priority. Default to regular.
+  kind: enum
+  properties:
+  - name: Low
+    types:
+    - uid: string
+  - name: Regular
+    types:
+    - uid: string
+- name: ScaleSetEvictionPolicy
+  description: ScaleSetEvictionPolicy to be used to specify eviction policy for low priority virtual machine scale set. Default to Delete.
+  kind: enum
+  properties:
+  - name: Delete
+    types:
+    - uid: string
+  - name: Deallocate
+    types:
+    - uid: string
+- name: ContainerServiceSshConfiguration
+  description: SSH configuration for Linux-based VMs running on Azure.
+  kind: object
+  properties:
+  - name: publicKeys
+    description: The list of SSH public keys used to authenticate with Linux-based VMs. Only expect one key specified.
+    types:
+    - uid: ContainerServiceSshPublicKey
+      isArray: true
+- name: NetworkPlugin
+  description: Network plugin used for building Kubernetes network.
+  kind: enum
+  properties:
+  - name: azure
+    types:
+    - uid: string
+  - name: kubenet
+    types:
+    - uid: string
+- name: NetworkPolicy
+  description: Network policy used for building Kubernetes network.
+  kind: enum
+  properties:
+  - name: calico
+    types:
+    - uid: string
+  - name: azure
+    types:
+    - uid: string
+- name: loadBalancerSku
+  description: The load balancer sku for the managed cluster.
+  kind: enum
+  properties:
+  - name: standard
+    types:
+    - uid: string
+  - name: basic
+    types:
+    - uid: string
+- name: ManagedClusterLoadBalancerProfile
+  description: Profile of the managed cluster load balancer
+  kind: object
+  properties:
+  - name: managedOutboundIPs
+    description: Desired managed outbound IPs for the cluster load balancer.
+    types:
+    - uid: ManagedOutboundIPs
+  - name: outboundIPPrefixes
+    description: Desired outbound IP Prefix resources for the cluster load balancer.
+    types:
+    - uid: OutboundIPPrefixes
+  - name: outboundIPs
+    description: Desired outbound IP resources for the cluster load balancer.
+    types:
+    - uid: OutboundIPs
+  - name: effectiveOutboundIPs
+    description: The effective outbound IP resources of the cluster load balancer.
+    types:
+    - uid: ResourceReference
+      isArray: true
+- name: ContainerServiceSshPublicKey
+  description: Contains information about SSH certificate public key data.
+  kind: object
+  properties:
+  - name: keyData
+    description: Certificate public key used to authenticate with VMs through SSH. The certificate must be in PEM format with or without headers.
+    types:
+    - uid: string
+- name: ManagedOutboundIPs
+  description: Desired managed outbound IPs for the cluster load balancer.
+  kind: object
+  properties:
+  - name: count
+    description: 'Desired number of outbound IP created/managed by Azure for the cluster load balancer. Allowed values must be in the range of 1 to 100 (inclusive). The default value is 1. '
+    types:
+    - uid: integer
+- name: OutboundIPPrefixes
+  description: Desired outbound IP Prefix resources for the cluster load balancer.
+  kind: object
+  properties:
+  - name: publicIPPrefixes
+    description: A list of public IP prefix resources.
+    types:
+    - uid: ResourceReference
+      isArray: true
+- name: OutboundIPs
+  description: Desired outbound IP resources for the cluster load balancer.
+  kind: object
+  properties:
+  - name: publicIPs
+    description: A list of public IP resources.
+    types:
+    - uid: ResourceReference
+      isArray: true
+- name: ResourceReference
+  description: A reference to an Azure resource.
+  kind: object
+  properties:
+  - name: id
+    description: The fully qualified Azure resource id.
+    types:
+    - uid: string
+examples:
+- name: Get Managed Clusters by Resource Group
+  request:
+    uri: GET https://management.azure.com/subscriptions/subid1/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters?api-version=2019-08-01
+  responses:
+  - statusCode: "200"
+    body: >-
+      {
+        "value": [
+          {
+            "id": "/subscriptions/subid1/resourcegroups/rg1/providers/Microsoft.ContainerService/managedClusters",
+            "location": "location1",
+            "name": "clustername1",
+            "tags": {
+              "archv2": "",
+              "tier": "production"
+            },
+            "type": "Microsoft.ContainerService/ManagedClusters",
+            "properties": {
+              "provisioningState": "Succeeded",
+              "kubernetesVersion": "1.9.6",
+              "maxAgentPools": 1,
+              "dnsPrefix": "dnsprefix1",
+              "fqdn": "dnsprefix1-abcd1234.hcp.eastus.azmk8s.io",
+              "agentPoolProfiles": [
+                {
+                  "name": "nodepool1",
+                  "count": 3,
+                  "vmSize": "Standard_DS1_v2",
+                  "maxPods": 110,
+                  "osType": "Linux",
+                  "provisioningState": "Succeeded",
+                  "orchestratorVersion": "1.9.6"
+                }
+              ],
+              "linuxProfile": {
+                "adminUsername": "azureuser",
+                "ssh": {
+                  "publicKeys": [
+                    {
+                      "keyData": "keydata"
+                    }
+                  ]
+                }
+              },
+              "servicePrincipalProfile": {
+                "clientId": "clientid"
+              },
+              "nodeResourceGroup": "MC_rg1_clustername1_location1",
+              "enableRBAC": false,
+              "networkProfile": {
+                "networkPlugin": "kubenet",
+                "podCidr": "10.244.0.0/16",
+                "serviceCidr": "10.0.0.0/16",
+                "dnsServiceIP": "10.0.0.10",
+                "dockerBridgeCidr": "172.17.0.1/16"
+              }
+            }
+          }
+        ]
+      }
+security:
+- name: azure_auth
+  type: oauth2
+  description: Azure Active Directory OAuth2 Flow
+  flow: implicit
+  authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+  scopes:
+  - name: user_impersonation
+    description: impersonate your user account
+errorCodes: []
