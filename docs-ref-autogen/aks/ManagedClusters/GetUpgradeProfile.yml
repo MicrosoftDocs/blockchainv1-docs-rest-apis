@@ -1,0 +1,204 @@
+### YamlMime:RESTOperation
+uid: management.azure.com.aks.managedclusters.getupgradeprofile
+name: Get Upgrade Profile
+service: AKS
+groupName: Managed Clusters
+apiVersion: 2019-08-01
+summary: "Gets upgrade profile for a managed cluster.  \nGets the details of the upgrade profile for a managed cluster with a specified resource group and name."
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+- content: GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/upgradeProfiles/default?api-version=2019-08-01
+uriParameters:
+- name: subscriptionId
+  in: path
+  isRequired: true
+  description: Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+  types:
+  - uid: string
+- name: resourceGroupName
+  in: path
+  isRequired: true
+  description: The name of the resource group.
+  types:
+  - uid: string
+- name: resourceName
+  in: path
+  isRequired: true
+  description: The name of the managed cluster resource.
+  types:
+  - uid: string
+  pattern: ^[a-zA-Z0-9]$|^[a-zA-Z0-9][-_a-zA-Z0-9]{0,61}[a-zA-Z0-9]$
+- name: api-version
+  in: query
+  isRequired: true
+  description: Client Api Version.
+  types:
+  - uid: string
+responses:
+- name: 200 OK
+  description: OK
+  types:
+  - uid: ManagedClusterUpgradeProfile
+- name: Other Status Codes
+  description: Error response describing why the operation failed.
+  types:
+  - uid: CloudError
+requestHeader: []
+definitions:
+- name: ManagedClusterUpgradeProfile
+  description: The list of available upgrades for compute pools.
+  kind: object
+  properties:
+  - name: id
+    isReadyOnly: true
+    description: Id of upgrade profile.
+    types:
+    - uid: string
+  - name: name
+    isReadyOnly: true
+    description: Name of upgrade profile.
+    types:
+    - uid: string
+  - name: type
+    isReadyOnly: true
+    description: Type of upgrade profile.
+    types:
+    - uid: string
+  - name: properties.controlPlaneProfile
+    description: The list of available upgrade versions for the control plane.
+    types:
+    - uid: ManagedClusterPoolUpgradeProfile
+  - name: properties.agentPoolProfiles
+    description: The list of available upgrade versions for agent pools.
+    types:
+    - uid: ManagedClusterPoolUpgradeProfile
+      isArray: true
+- name: CloudError
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: error
+    description: Details about the error.
+    types:
+    - uid: CloudErrorBody
+- name: ManagedClusterPoolUpgradeProfile
+  description: The list of available upgrade versions.
+  kind: object
+  properties:
+  - name: kubernetesVersion
+    description: Kubernetes version (major, minor, patch).
+    types:
+    - uid: string
+  - name: name
+    description: Pool name.
+    types:
+    - uid: string
+  - name: osType
+    description: OsType to be used to specify os type. Choose from Linux and Windows. Default to Linux.
+    types:
+    - uid: ContainerServiceOSTypes
+  - name: upgrades
+    description: List of orchestrator types and versions available for upgrade.
+    types:
+    - uid: Upgrades
+      isArray: true
+- name: CloudErrorBody
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: code
+    description: An identifier for the error. Codes are invariant and are intended to be consumed programmatically.
+    types:
+    - uid: string
+  - name: message
+    description: A message describing the error, intended to be suitable for display in a user interface.
+    types:
+    - uid: string
+  - name: target
+    description: The target of the particular error. For example, the name of the property in error.
+    types:
+    - uid: string
+  - name: details
+    description: A list of additional details about the error.
+    types:
+    - uid: CloudErrorBody
+      isArray: true
+- name: ContainerServiceOSTypes
+  description: OsType to be used to specify os type. Choose from Linux and Windows. Default to Linux.
+  kind: enum
+  properties:
+  - name: Linux
+    types:
+    - uid: string
+  - name: Windows
+    types:
+    - uid: string
+- name: Upgrades
+  description: List of orchestrator types and versions available for upgrade.
+  kind: object
+  properties:
+  - name: kubernetesVersion
+    description: Kubernetes version (major, minor, patch).
+    types:
+    - uid: string
+  - name: isPreview
+    description: Whether Kubernetes version is currently in preview.
+    types:
+    - uid: boolean
+examples:
+- name: Get Upgrade Profile for Managed Cluster
+  request:
+    uri: GET https://management.azure.com/subscriptions/subid1/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/upgradeProfiles/default?api-version=2019-08-01
+  responses:
+  - statusCode: "200"
+    body: >-
+      {
+        "id": "/subscriptions/subid1/resourcegroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/upgradeprofiles/default",
+        "name": "default",
+        "properties": {
+          "agentPoolProfiles": [
+            {
+              "kubernetesVersion": "1.7.7",
+              "name": "agent",
+              "osType": "Linux",
+              "upgrades": [
+                {
+                  "kubernetesVersion": "1.7.9"
+                },
+                {
+                  "kubernetesVersion": "1.7.11",
+                  "isPreview": true
+                }
+              ]
+            }
+          ],
+          "controlPlaneProfile": {
+            "kubernetesVersion": "1.7.7",
+            "name": "master",
+            "osType": "Linux",
+            "upgrades": [
+              {
+                "kubernetesVersion": "1.7.9",
+                "isPreview": true
+              },
+              {
+                "kubernetesVersion": "1.7.11"
+              }
+            ]
+          }
+        },
+        "type": "Microsoft.ContainerService/managedClusters/upgradeprofiles"
+      }
+security:
+- name: azure_auth
+  type: oauth2
+  description: Azure Active Directory OAuth2 Flow
+  flow: implicit
+  authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+  scopes:
+  - name: user_impersonation
+    description: impersonate your user account
+errorCodes: []

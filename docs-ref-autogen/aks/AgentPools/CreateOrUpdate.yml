@@ -1,0 +1,901 @@
+### YamlMime:RESTOperation
+uid: management.azure.com.aks.agentpools.createorupdate
+name: Create Or Update
+service: AKS
+groupName: Agent Pools
+apiVersion: 2019-08-01
+summary: "Creates or updates an agent pool.  \nCreates or updates an agent pool in the specified managed cluster."
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+- content: PUT https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/agentPools/{agentPoolName}?api-version=2019-08-01
+uriParameters:
+- name: subscriptionId
+  in: path
+  isRequired: true
+  description: Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+  types:
+  - uid: string
+- name: resourceGroupName
+  in: path
+  isRequired: true
+  description: The name of the resource group.
+  types:
+  - uid: string
+- name: resourceName
+  in: path
+  isRequired: true
+  description: The name of the managed cluster resource.
+  types:
+  - uid: string
+  pattern: ^[a-zA-Z0-9]$|^[a-zA-Z0-9][-_a-zA-Z0-9]{0,61}[a-zA-Z0-9]$
+- name: agentPoolName
+  in: path
+  isRequired: true
+  description: The name of the agent pool.
+  types:
+  - uid: string
+- name: api-version
+  in: query
+  isRequired: true
+  description: Client Api Version.
+  types:
+  - uid: string
+responses:
+- name: 200 OK
+  description: OK
+  types:
+  - uid: AgentPool
+- name: 201 Created
+  description: Created
+  types:
+  - uid: AgentPool
+- name: Other Status Codes
+  description: Error response describing why the operation failed.
+  types:
+  - uid: CloudError
+requestBody:
+- name: default
+  parameters:
+  - name: properties.count
+    in: body
+    isRequired: true
+    description: 'Number of agents (VMs) to host docker containers. Allowed values must be in the range of 1 to 100 (inclusive). The default value is 1. '
+    types:
+    - uid: integer
+  - name: properties.vmSize
+    in: body
+    isRequired: true
+    description: Size of agent VMs.
+    types:
+    - uid: ContainerServiceVMSizeTypes
+  - name: properties.osDiskSizeGB
+    in: body
+    description: OS Disk Size in GB to be used to specify the disk size for every machine in this master/agent pool. If you specify 0, it will apply the default osDisk size according to the vmSize specified.
+    types:
+    - uid: integer
+  - name: properties.vnetSubnetID
+    in: body
+    description: VNet SubnetID specifies the VNet's subnet identifier.
+    types:
+    - uid: string
+  - name: properties.maxPods
+    in: body
+    description: Maximum number of pods that can run on a node.
+    types:
+    - uid: integer
+  - name: properties.osType
+    in: body
+    description: OsType to be used to specify os type. Choose from Linux and Windows. Default to Linux.
+    types:
+    - uid: OSType
+  - name: properties.maxCount
+    in: body
+    description: Maximum number of nodes for auto-scaling
+    types:
+    - uid: integer
+  - name: properties.minCount
+    in: body
+    description: Minimum number of nodes for auto-scaling
+    types:
+    - uid: integer
+  - name: properties.enableAutoScaling
+    in: body
+    description: Whether to enable auto-scaler
+    types:
+    - uid: boolean
+  - name: properties.type
+    in: body
+    description: AgentPoolType represents types of an agent pool
+    types:
+    - uid: AgentPoolType
+  - name: properties.orchestratorVersion
+    in: body
+    description: Version of orchestrator specified when creating the managed cluster.
+    types:
+    - uid: string
+  - name: properties.availabilityZones
+    in: body
+    description: (PREVIEW) Availability zones for nodes. Must use VirtualMachineScaleSets AgentPoolType.
+    types:
+    - uid: string
+      isArray: true
+  - name: properties.enableNodePublicIP
+    in: body
+    description: Enable public IP for nodes
+    types:
+    - uid: boolean
+  - name: properties.scaleSetPriority
+    in: body
+    description: ScaleSetPriority to be used to specify virtual machine scale set priority. Default to regular.
+    types:
+    - uid: ScaleSetPriority
+  - name: properties.scaleSetEvictionPolicy
+    in: body
+    description: ScaleSetEvictionPolicy to be used to specify eviction policy for low priority virtual machine scale set. Default to Delete.
+    types:
+    - uid: ScaleSetEvictionPolicy
+  - name: properties.nodeTaints
+    in: body
+    description: Taints added to new nodes during node pool create and scale. For example, key=value:NoSchedule.
+    types:
+    - uid: string
+      isArray: true
+requestHeader: []
+definitions:
+- name: AgentPool
+  description: Agent Pool.
+  kind: object
+  properties:
+  - name: id
+    isReadyOnly: true
+    description: Resource ID.
+    types:
+    - uid: string
+  - name: name
+    isReadyOnly: true
+    description: The name of the resource that is unique within a resource group. This name can be used to access the resource.
+    types:
+    - uid: string
+  - name: type
+    isReadyOnly: true
+    description: Resource type
+    types:
+    - uid: string
+  - name: properties.count
+    description: 'Number of agents (VMs) to host docker containers. Allowed values must be in the range of 1 to 100 (inclusive). The default value is 1. '
+    types:
+    - uid: integer
+  - name: properties.vmSize
+    description: Size of agent VMs.
+    types:
+    - uid: ContainerServiceVMSizeTypes
+  - name: properties.osDiskSizeGB
+    description: OS Disk Size in GB to be used to specify the disk size for every machine in this master/agent pool. If you specify 0, it will apply the default osDisk size according to the vmSize specified.
+    types:
+    - uid: integer
+  - name: properties.vnetSubnetID
+    description: VNet SubnetID specifies the VNet's subnet identifier.
+    types:
+    - uid: string
+  - name: properties.maxPods
+    description: Maximum number of pods that can run on a node.
+    types:
+    - uid: integer
+  - name: properties.osType
+    description: OsType to be used to specify os type. Choose from Linux and Windows. Default to Linux.
+    types:
+    - uid: OSType
+  - name: properties.maxCount
+    description: Maximum number of nodes for auto-scaling
+    types:
+    - uid: integer
+  - name: properties.minCount
+    description: Minimum number of nodes for auto-scaling
+    types:
+    - uid: integer
+  - name: properties.enableAutoScaling
+    description: Whether to enable auto-scaler
+    types:
+    - uid: boolean
+  - name: properties.type
+    description: AgentPoolType represents types of an agent pool
+    types:
+    - uid: AgentPoolType
+  - name: properties.orchestratorVersion
+    description: Version of orchestrator specified when creating the managed cluster.
+    types:
+    - uid: string
+  - name: properties.provisioningState
+    isReadyOnly: true
+    description: The current deployment or provisioning state, which only appears in the response.
+    types:
+    - uid: string
+  - name: properties.availabilityZones
+    description: (PREVIEW) Availability zones for nodes. Must use VirtualMachineScaleSets AgentPoolType.
+    types:
+    - uid: string
+      isArray: true
+  - name: properties.enableNodePublicIP
+    description: Enable public IP for nodes
+    types:
+    - uid: boolean
+  - name: properties.scaleSetPriority
+    description: ScaleSetPriority to be used to specify virtual machine scale set priority. Default to regular.
+    types:
+    - uid: ScaleSetPriority
+  - name: properties.scaleSetEvictionPolicy
+    description: ScaleSetEvictionPolicy to be used to specify eviction policy for low priority virtual machine scale set. Default to Delete.
+    types:
+    - uid: ScaleSetEvictionPolicy
+  - name: properties.nodeTaints
+    description: Taints added to new nodes during node pool create and scale. For example, key=value:NoSchedule.
+    types:
+    - uid: string
+      isArray: true
+- name: CloudError
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: error
+    description: Details about the error.
+    types:
+    - uid: CloudErrorBody
+- name: ContainerServiceVMSizeTypes
+  description: Size of agent VMs.
+  kind: enum
+  properties:
+  - name: Standard_A1
+    types:
+    - uid: string
+  - name: Standard_A10
+    types:
+    - uid: string
+  - name: Standard_A11
+    types:
+    - uid: string
+  - name: Standard_A1_v2
+    types:
+    - uid: string
+  - name: Standard_A2
+    types:
+    - uid: string
+  - name: Standard_A2_v2
+    types:
+    - uid: string
+  - name: Standard_A2m_v2
+    types:
+    - uid: string
+  - name: Standard_A3
+    types:
+    - uid: string
+  - name: Standard_A4
+    types:
+    - uid: string
+  - name: Standard_A4_v2
+    types:
+    - uid: string
+  - name: Standard_A4m_v2
+    types:
+    - uid: string
+  - name: Standard_A5
+    types:
+    - uid: string
+  - name: Standard_A6
+    types:
+    - uid: string
+  - name: Standard_A7
+    types:
+    - uid: string
+  - name: Standard_A8
+    types:
+    - uid: string
+  - name: Standard_A8_v2
+    types:
+    - uid: string
+  - name: Standard_A8m_v2
+    types:
+    - uid: string
+  - name: Standard_A9
+    types:
+    - uid: string
+  - name: Standard_B2ms
+    types:
+    - uid: string
+  - name: Standard_B2s
+    types:
+    - uid: string
+  - name: Standard_B4ms
+    types:
+    - uid: string
+  - name: Standard_B8ms
+    types:
+    - uid: string
+  - name: Standard_D1
+    types:
+    - uid: string
+  - name: Standard_D11
+    types:
+    - uid: string
+  - name: Standard_D11_v2
+    types:
+    - uid: string
+  - name: Standard_D11_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D12
+    types:
+    - uid: string
+  - name: Standard_D12_v2
+    types:
+    - uid: string
+  - name: Standard_D12_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D13
+    types:
+    - uid: string
+  - name: Standard_D13_v2
+    types:
+    - uid: string
+  - name: Standard_D13_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D14
+    types:
+    - uid: string
+  - name: Standard_D14_v2
+    types:
+    - uid: string
+  - name: Standard_D14_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D15_v2
+    types:
+    - uid: string
+  - name: Standard_D16_v3
+    types:
+    - uid: string
+  - name: Standard_D16s_v3
+    types:
+    - uid: string
+  - name: Standard_D1_v2
+    types:
+    - uid: string
+  - name: Standard_D2
+    types:
+    - uid: string
+  - name: Standard_D2_v2
+    types:
+    - uid: string
+  - name: Standard_D2_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D2_v3
+    types:
+    - uid: string
+  - name: Standard_D2s_v3
+    types:
+    - uid: string
+  - name: Standard_D3
+    types:
+    - uid: string
+  - name: Standard_D32_v3
+    types:
+    - uid: string
+  - name: Standard_D32s_v3
+    types:
+    - uid: string
+  - name: Standard_D3_v2
+    types:
+    - uid: string
+  - name: Standard_D3_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D4
+    types:
+    - uid: string
+  - name: Standard_D4_v2
+    types:
+    - uid: string
+  - name: Standard_D4_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D4_v3
+    types:
+    - uid: string
+  - name: Standard_D4s_v3
+    types:
+    - uid: string
+  - name: Standard_D5_v2
+    types:
+    - uid: string
+  - name: Standard_D5_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_D64_v3
+    types:
+    - uid: string
+  - name: Standard_D64s_v3
+    types:
+    - uid: string
+  - name: Standard_D8_v3
+    types:
+    - uid: string
+  - name: Standard_D8s_v3
+    types:
+    - uid: string
+  - name: Standard_DS1
+    types:
+    - uid: string
+  - name: Standard_DS11
+    types:
+    - uid: string
+  - name: Standard_DS11_v2
+    types:
+    - uid: string
+  - name: Standard_DS11_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS12
+    types:
+    - uid: string
+  - name: Standard_DS12_v2
+    types:
+    - uid: string
+  - name: Standard_DS12_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS13
+    types:
+    - uid: string
+  - name: Standard_DS13-2_v2
+    types:
+    - uid: string
+  - name: Standard_DS13-4_v2
+    types:
+    - uid: string
+  - name: Standard_DS13_v2
+    types:
+    - uid: string
+  - name: Standard_DS13_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS14
+    types:
+    - uid: string
+  - name: Standard_DS14-4_v2
+    types:
+    - uid: string
+  - name: Standard_DS14-8_v2
+    types:
+    - uid: string
+  - name: Standard_DS14_v2
+    types:
+    - uid: string
+  - name: Standard_DS14_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS15_v2
+    types:
+    - uid: string
+  - name: Standard_DS1_v2
+    types:
+    - uid: string
+  - name: Standard_DS2
+    types:
+    - uid: string
+  - name: Standard_DS2_v2
+    types:
+    - uid: string
+  - name: Standard_DS2_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS3
+    types:
+    - uid: string
+  - name: Standard_DS3_v2
+    types:
+    - uid: string
+  - name: Standard_DS3_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS4
+    types:
+    - uid: string
+  - name: Standard_DS4_v2
+    types:
+    - uid: string
+  - name: Standard_DS4_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_DS5_v2
+    types:
+    - uid: string
+  - name: Standard_DS5_v2_Promo
+    types:
+    - uid: string
+  - name: Standard_E16_v3
+    types:
+    - uid: string
+  - name: Standard_E16s_v3
+    types:
+    - uid: string
+  - name: Standard_E2_v3
+    types:
+    - uid: string
+  - name: Standard_E2s_v3
+    types:
+    - uid: string
+  - name: Standard_E32-16s_v3
+    types:
+    - uid: string
+  - name: Standard_E32-8s_v3
+    types:
+    - uid: string
+  - name: Standard_E32_v3
+    types:
+    - uid: string
+  - name: Standard_E32s_v3
+    types:
+    - uid: string
+  - name: Standard_E4_v3
+    types:
+    - uid: string
+  - name: Standard_E4s_v3
+    types:
+    - uid: string
+  - name: Standard_E64-16s_v3
+    types:
+    - uid: string
+  - name: Standard_E64-32s_v3
+    types:
+    - uid: string
+  - name: Standard_E64_v3
+    types:
+    - uid: string
+  - name: Standard_E64s_v3
+    types:
+    - uid: string
+  - name: Standard_E8_v3
+    types:
+    - uid: string
+  - name: Standard_E8s_v3
+    types:
+    - uid: string
+  - name: Standard_F1
+    types:
+    - uid: string
+  - name: Standard_F16
+    types:
+    - uid: string
+  - name: Standard_F16s
+    types:
+    - uid: string
+  - name: Standard_F16s_v2
+    types:
+    - uid: string
+  - name: Standard_F1s
+    types:
+    - uid: string
+  - name: Standard_F2
+    types:
+    - uid: string
+  - name: Standard_F2s
+    types:
+    - uid: string
+  - name: Standard_F2s_v2
+    types:
+    - uid: string
+  - name: Standard_F32s_v2
+    types:
+    - uid: string
+  - name: Standard_F4
+    types:
+    - uid: string
+  - name: Standard_F4s
+    types:
+    - uid: string
+  - name: Standard_F4s_v2
+    types:
+    - uid: string
+  - name: Standard_F64s_v2
+    types:
+    - uid: string
+  - name: Standard_F72s_v2
+    types:
+    - uid: string
+  - name: Standard_F8
+    types:
+    - uid: string
+  - name: Standard_F8s
+    types:
+    - uid: string
+  - name: Standard_F8s_v2
+    types:
+    - uid: string
+  - name: Standard_G1
+    types:
+    - uid: string
+  - name: Standard_G2
+    types:
+    - uid: string
+  - name: Standard_G3
+    types:
+    - uid: string
+  - name: Standard_G4
+    types:
+    - uid: string
+  - name: Standard_G5
+    types:
+    - uid: string
+  - name: Standard_GS1
+    types:
+    - uid: string
+  - name: Standard_GS2
+    types:
+    - uid: string
+  - name: Standard_GS3
+    types:
+    - uid: string
+  - name: Standard_GS4
+    types:
+    - uid: string
+  - name: Standard_GS4-4
+    types:
+    - uid: string
+  - name: Standard_GS4-8
+    types:
+    - uid: string
+  - name: Standard_GS5
+    types:
+    - uid: string
+  - name: Standard_GS5-16
+    types:
+    - uid: string
+  - name: Standard_GS5-8
+    types:
+    - uid: string
+  - name: Standard_H16
+    types:
+    - uid: string
+  - name: Standard_H16m
+    types:
+    - uid: string
+  - name: Standard_H16mr
+    types:
+    - uid: string
+  - name: Standard_H16r
+    types:
+    - uid: string
+  - name: Standard_H8
+    types:
+    - uid: string
+  - name: Standard_H8m
+    types:
+    - uid: string
+  - name: Standard_L16s
+    types:
+    - uid: string
+  - name: Standard_L32s
+    types:
+    - uid: string
+  - name: Standard_L4s
+    types:
+    - uid: string
+  - name: Standard_L8s
+    types:
+    - uid: string
+  - name: Standard_M128-32ms
+    types:
+    - uid: string
+  - name: Standard_M128-64ms
+    types:
+    - uid: string
+  - name: Standard_M128ms
+    types:
+    - uid: string
+  - name: Standard_M128s
+    types:
+    - uid: string
+  - name: Standard_M64-16ms
+    types:
+    - uid: string
+  - name: Standard_M64-32ms
+    types:
+    - uid: string
+  - name: Standard_M64ms
+    types:
+    - uid: string
+  - name: Standard_M64s
+    types:
+    - uid: string
+  - name: Standard_NC12
+    types:
+    - uid: string
+  - name: Standard_NC12s_v2
+    types:
+    - uid: string
+  - name: Standard_NC12s_v3
+    types:
+    - uid: string
+  - name: Standard_NC24
+    types:
+    - uid: string
+  - name: Standard_NC24r
+    types:
+    - uid: string
+  - name: Standard_NC24rs_v2
+    types:
+    - uid: string
+  - name: Standard_NC24rs_v3
+    types:
+    - uid: string
+  - name: Standard_NC24s_v2
+    types:
+    - uid: string
+  - name: Standard_NC24s_v3
+    types:
+    - uid: string
+  - name: Standard_NC6
+    types:
+    - uid: string
+  - name: Standard_NC6s_v2
+    types:
+    - uid: string
+  - name: Standard_NC6s_v3
+    types:
+    - uid: string
+  - name: Standard_ND12s
+    types:
+    - uid: string
+  - name: Standard_ND24rs
+    types:
+    - uid: string
+  - name: Standard_ND24s
+    types:
+    - uid: string
+  - name: Standard_ND6s
+    types:
+    - uid: string
+  - name: Standard_NV12
+    types:
+    - uid: string
+  - name: Standard_NV24
+    types:
+    - uid: string
+  - name: Standard_NV6
+    types:
+    - uid: string
+- name: OSType
+  description: OsType to be used to specify os type. Choose from Linux and Windows. Default to Linux.
+  kind: enum
+  properties:
+  - name: Linux
+    types:
+    - uid: string
+  - name: Windows
+    types:
+    - uid: string
+- name: AgentPoolType
+  description: AgentPoolType represents types of an agent pool. VirtualMachineScaleSets type is still in PREVIEW.
+  kind: enum
+  properties:
+  - name: VirtualMachineScaleSets
+    types:
+    - uid: string
+  - name: AvailabilitySet
+    types:
+    - uid: string
+- name: ScaleSetPriority
+  description: ScaleSetPriority to be used to specify virtual machine scale set priority. Default to regular.
+  kind: enum
+  properties:
+  - name: Low
+    types:
+    - uid: string
+  - name: Regular
+    types:
+    - uid: string
+- name: ScaleSetEvictionPolicy
+  description: ScaleSetEvictionPolicy to be used to specify eviction policy for low priority virtual machine scale set. Default to Delete.
+  kind: enum
+  properties:
+  - name: Delete
+    types:
+    - uid: string
+  - name: Deallocate
+    types:
+    - uid: string
+- name: CloudErrorBody
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: code
+    description: An identifier for the error. Codes are invariant and are intended to be consumed programmatically.
+    types:
+    - uid: string
+  - name: message
+    description: A message describing the error, intended to be suitable for display in a user interface.
+    types:
+    - uid: string
+  - name: target
+    description: The target of the particular error. For example, the name of the property in error.
+    types:
+    - uid: string
+  - name: details
+    description: A list of additional details about the error.
+    types:
+    - uid: CloudErrorBody
+      isArray: true
+examples:
+- name: Create/Update Agent Pool
+  request:
+    uri: PUT https://management.azure.com/subscriptions/subid1/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1?api-version=2019-08-01
+    body: >-
+      {
+        "properties": {
+          "orchestratorVersion": "",
+          "count": 3,
+          "vmSize": "Standard_DS1_v2",
+          "osType": "Linux",
+          "nodeTaints": [
+            "Key1=Value1:NoSchedule"
+          ],
+          "scaleSetPriority": "Low",
+          "scaleSetEvictionPolicy": "Delete"
+        }
+      }
+  responses:
+  - statusCode: "200"
+    body: >-
+      {
+        "id": "/subscriptions/subid1/resourcegroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1",
+        "type": "Microsoft.ContainerService/managedClusters/agentPools",
+        "name": "agentpool1",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "orchestratorVersion": "1.9.6",
+          "count": 3,
+          "vmSize": "Standard_DS1_v2",
+          "maxPods": 110,
+          "osType": "Linux",
+          "nodeTaints": [
+            "Key1=Value1:NoSchedule"
+          ],
+          "scaleSetPriority": "Low",
+          "scaleSetEvictionPolicy": "Delete"
+        }
+      }
+  - statusCode: "201"
+    body: >-
+      {
+        "id": "/subscriptions/subid1/resourcegroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1",
+        "type": "Microsoft.ContainerService/managedClusters/agentPools",
+        "name": "agentpool1",
+        "properties": {
+          "provisioningState": "Creating",
+          "orchestratorVersion": "1.9.6",
+          "count": 3,
+          "vmSize": "Standard_DS1_v2",
+          "maxPods": 110,
+          "osType": "Linux",
+          "nodeTaints": [
+            "Key1=Value1:NoSchedule"
+          ],
+          "scaleSetPriority": "Low",
+          "scaleSetEvictionPolicy": "Delete"
+        }
+      }
+security:
+- name: azure_auth
+  type: oauth2
+  description: Azure Active Directory OAuth2 Flow
+  flow: implicit
+  authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+  scopes:
+  - name: user_impersonation
+    description: impersonate your user account
+errorCodes: []

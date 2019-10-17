@@ -1,0 +1,127 @@
+### YamlMime:RESTOperation
+uid: management.azure.com.aks.managedclusters.resetserviceprincipalprofile
+name: Reset Service Principal Profile
+service: AKS
+groupName: Managed Clusters
+apiVersion: 2019-08-01
+summary: "Reset Service Principal Profile of a managed cluster.  \nUpdate the service principal Profile for a managed cluster."
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+- content: POST https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/resetServicePrincipalProfile?api-version=2019-08-01
+uriParameters:
+- name: subscriptionId
+  in: path
+  isRequired: true
+  description: Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+  types:
+  - uid: string
+- name: resourceGroupName
+  in: path
+  isRequired: true
+  description: The name of the resource group.
+  types:
+  - uid: string
+- name: resourceName
+  in: path
+  isRequired: true
+  description: The name of the managed cluster resource.
+  types:
+  - uid: string
+  pattern: ^[a-zA-Z0-9]$|^[a-zA-Z0-9][-_a-zA-Z0-9]{0,61}[a-zA-Z0-9]$
+- name: api-version
+  in: query
+  isRequired: true
+  description: Client Api Version.
+  types:
+  - uid: string
+responses:
+- name: 200 OK
+  description: OK
+- name: 202 Accepted
+  description: Accepted
+- name: Other Status Codes
+  description: Error response describing why the operation failed. If the cluster doesn't exist, 404 (Not found) is returned.
+  types:
+  - uid: CloudError
+requestBody:
+- name: default
+  parameters:
+  - name: clientId
+    in: body
+    isRequired: true
+    description: The ID for the service principal.
+    types:
+    - uid: string
+  - name: secret
+    in: body
+    description: The secret password associated with the service principal in plain text.
+    types:
+    - uid: string
+requestHeader: []
+definitions:
+- name: CloudError
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: error
+    description: Details about the error.
+    types:
+    - uid: CloudErrorBody
+- name: ManagedClusterServicePrincipalProfile
+  description: Information about a service principal identity for the cluster to use for manipulating Azure APIs.
+  kind: object
+  properties:
+  - name: clientId
+    description: The ID for the service principal.
+    types:
+    - uid: string
+  - name: secret
+    description: The secret password associated with the service principal in plain text.
+    types:
+    - uid: string
+- name: CloudErrorBody
+  description: An error response from the Container service.
+  kind: object
+  properties:
+  - name: code
+    description: An identifier for the error. Codes are invariant and are intended to be consumed programmatically.
+    types:
+    - uid: string
+  - name: message
+    description: A message describing the error, intended to be suitable for display in a user interface.
+    types:
+    - uid: string
+  - name: target
+    description: The target of the particular error. For example, the name of the property in error.
+    types:
+    - uid: string
+  - name: details
+    description: A list of additional details about the error.
+    types:
+    - uid: CloudErrorBody
+      isArray: true
+examples:
+- name: Reset Service Principal Profile
+  request:
+    uri: POST https://management.azure.com/subscriptions/subid1/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/resetServicePrincipalProfile?api-version=2019-08-01
+    body: >-
+      {
+        "clientId": "clientid",
+        "secret": "secret"
+      }
+  responses:
+  - statusCode: "200"
+  - statusCode: "202"
+security:
+- name: azure_auth
+  type: oauth2
+  description: Azure Active Directory OAuth2 Flow
+  flow: implicit
+  authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+  scopes:
+  - name: user_impersonation
+    description: impersonate your user account
+errorCodes: []

@@ -1,0 +1,18 @@
+### YamlMime:RESTOperationGroup
+uid: management.azure.com.aks.agentpools
+name: Agent Pools
+apiVersion: 2019-08-01
+service: AKS
+operations:
+- uid: management.azure.com.aks.agentpools.createorupdate
+  summary: "Creates or updates an agent pool.  \nCreates or updates an agent pool in the specified managed cluster."
+- uid: management.azure.com.aks.agentpools.delete
+  summary: "Deletes an agent pool.  \nDeletes the agent pool in the specified managed cluster."
+- uid: management.azure.com.aks.agentpools.get
+  summary: "Gets the agent pool.  \nGets the details of the agent pool by managed cluster and resource group."
+- uid: management.azure.com.aks.agentpools.getavailableagentpoolversions
+  summary: Gets a list of supported versions for the specified agent pool.
+- uid: management.azure.com.aks.agentpools.getupgradeprofile
+  summary: "Gets upgrade profile for an agent pool.  \nGets the details of the upgrade profile for an agent pool with a specified resource group and managed cluster name."
+- uid: management.azure.com.aks.agentpools.list
+  summary: "Gets a list of agent pools in the specified managed cluster.  \nGets a list of agent pools in the specified managed cluster. The operation returns properties of each agent pool."

@@ -1,0 +1,21 @@
+{
+  "Operations/List.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/CreateOrUpdate.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/Delete.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/Get.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/GetAccessProfile.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/GetUpgradeProfile.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/List.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/ListByResourceGroup.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/ListClusterAdminCredentials.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/ListClusterUserCredentials.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/ResetAADProfile.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/ResetServicePrincipalProfile.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "ManagedClusters/UpdateTags.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "AgentPools/CreateOrUpdate.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "AgentPools/Delete.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "AgentPools/Get.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "AgentPools/GetAvailableAgentPoolVersions.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "AgentPools/GetUpgradeProfile.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1",
+  "AgentPools/List.yml": "https://github.com/azure/azure-rest-api-specs/blob/master/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json#L1"
+}

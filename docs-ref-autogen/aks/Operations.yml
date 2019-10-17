@@ -1,0 +1,8 @@
+### YamlMime:RESTOperationGroup
+uid: management.azure.com.aks.operations
+name: Operations
+apiVersion: 2019-08-01
+service: AKS
+operations:
+- uid: management.azure.com.aks.operations.list
+  summary: Gets a list of compute operations.
