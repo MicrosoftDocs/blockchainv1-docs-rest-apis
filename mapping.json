@@ -10,16 +10,16 @@
       "default_toc_title": "Getting Started with REST",
     "services": [
 	{
-          "toc_title": "AKS",
-          "url_group": "aks",
-          "service_index": "docs-ref-conceptual/aks/index.md",
-          "service_toc": "docs-ref-conceptual/aks/toc.md",
+          "toc_title": "Blockchain",
+          "url_group": "blockchain",
+          "service_index": "docs-ref-conceptual/blockchain/index.md",
+          "service_toc": "docs-ref-conceptual/blockchain/toc.md",
           "swagger_files": [
             {
-              "source": "azure-rest-api-specs/specification/containerservice/resource-manager/Microsoft.ContainerService/stable/2019-08-01/managedClusters.json"
+              "source": "blockchain-rest-apis-spec/tokens.json"
             }
           ]
-        }
+    }
 	]
     }
 	]

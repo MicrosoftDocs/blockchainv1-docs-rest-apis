@@ -9,6 +9,11 @@
          "url":"https://github.com/azure/azure-rest-api-specs",
          "branch":"master",
          "name":"azure-rest-api-specs"
+  },
+  {
+         "url":"https://github.com/MicrosoftDocs/blockchain-rest-apis-spec",
+         "branch":"master",
+         "name":"blockchain-rest-apis-spec"
   }
   ]
 }
